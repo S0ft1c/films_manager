@@ -3,12 +3,15 @@ from PyQt5.QtGui import QColor
 from PyQt5.QtCore import Qt
 from .add_category_dialog import AddCategoryDialog
 
-style = """color: #fff;
+style = """
+  color: #fff;
+  width: 300px;
+  height: 80px;
   border-radius: 5px;
-  padding: 10px 25px;
   font-family: 'Lato', sans-serif;
   font-weight: 500;
   background: rgb(96,9,240);
+  font-size: 20;
 """
 
 

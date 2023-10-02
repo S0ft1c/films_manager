@@ -31,9 +31,11 @@ font-size: 16px;
 font-wight: bold;"""
 
 
-class AddCategoryDialog(widgets.QDialog):
-    def __init__(self):
+class EditCategoryDialog(widgets.QDialog):
+    def __init__(self, id):
         super().__init__()
+
+        self.id = id  # needed id for editing
 
         # подгружаем дизайн
         uic.loadUi("./main_elements/add_category_btn/add_category_dialog.ui", self)
@@ -42,7 +44,7 @@ class AddCategoryDialog(widgets.QDialog):
         self.setWindowTitle("Создание собственной категории")
 
         # all of this is for fucking animation
-        self.text = "Сделайте свою категорию по своему вкусу"
+        self.text = "Редактируйте пока можете (хехе)"
         self.current_text = ''
         self.index = 0
         self.is_typing = True  # Флаг для определения написан ли текст
@@ -153,12 +155,14 @@ class AddCategoryDialog(widgets.QDialog):
         )
 
     def add_to_db(self):
-        ans = db.create_category(
+
+        ans = db.edit_category(
             name=self.line_edit.text(),
             textcolor=self.textcolor,
             backcolor=self.backcolor,
             bordercolor=self.bordercolor,
             desc=self.description_text.toPlainText(),
+            id=self.id,
         )
 
         if ans:
