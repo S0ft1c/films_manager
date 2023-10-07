@@ -35,7 +35,30 @@ class MainWindow(widgets.QMainWindow):
             self.category_load_data
         )
 
+        # elements scroll settings
+        self.elements_scroll_area.setWidgetResizable(
+            True
+        )
+        self.elements_scroll_layout = widgets.QVBoxLayout(self.elements_scroll_content)
+
+        # self.elements_load_btn.clicked.connect(  TODO: create an update btn
+        #     self.category_load_data
+        # )
+
         self.category_load_data()  # load data for default
+
+        # current_category_chosen
+        self.cur_category = -1  # -1 => no category chosen
+
+        # add element button
+        self.add_element_btn.setVisible(False)  # while there no category -> hide and enable the btn
+        self.add_element_btn.setEnabled(False)
+        self.add_element_btn.clicked.connect(
+            self.create_element
+        )
+
+    def create_element(self):  # to another class
+        ms.AddElementBtn(self.cur_category).create_element()
 
     def category_load_data(self):
         # clears all the layout
@@ -52,10 +75,21 @@ class MainWindow(widgets.QMainWindow):
                 ms.CategoryBtn(self, id)
             )
 
+    def elements_load_data(self, category_id: int):
+        self.cur_category = category_id
+        self.add_element_btn.setVisible(True)  # category selected -> visible
+        self.add_element_btn.setEnabled(True)
 
-if __name__ == '__main__':
-    app = widgets.QApplication(sys.argv)
-    # app.setStyleSheet('./static/style.css')
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec_())
+        elements = db.get_elements_by_category_id(category_id)
+
+        # clears all the layout
+        while self.elements_scroll_layout.count():
+            item = self.elements_scroll_layout.takeAt(0)
+            widget = item.widget()
+            if widget is not None:
+                widget.deleteLater()
+
+        for element in elements:
+            self.elements_scroll_layout.addWidget(
+                ms.ElementBtn(self, element[0])
+            )

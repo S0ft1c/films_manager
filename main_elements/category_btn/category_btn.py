@@ -1,9 +1,8 @@
 from PyQt5 import QtWidgets as widgets
-from PyQt5.QtGui import QColor
-from PyQt5.QtCore import Qt
 from db_class import db
 from PyQt5.QtGui import QIcon
 from .edit_category_dialog import EditCategoryDialog
+from PyQt5.QtCore import Qt
 
 
 class CategoryBtn(widgets.QLabel):
@@ -12,6 +11,7 @@ class CategoryBtn(widgets.QLabel):
 
         self.s = s
         self.id = id
+
         self.setFixedHeight(100)  # here is a fixed height of label
 
         # get data from db
@@ -54,6 +54,13 @@ class CategoryBtn(widgets.QLabel):
         # place a politics for label
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.show_context_menu)
+
+        # connect the mousePressEvent
+        self.mousePressEvent = self.left_click
+
+    def left_click(self, event):
+        if event.button() == Qt.LeftButton:
+            self.s.elements_load_data(self.id)
 
     def show_context_menu(self, event):
         # Отображаем контекстное меню в указанной позиции

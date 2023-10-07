@@ -17,7 +17,49 @@ class DB:
         )''')
         # id будет использоваться в другой таблице, в колонке со связкой
 
-        # TODO: create a table for films
+        self.cursor.execute('''create table if not exists elements (
+        id INTEGER PRIMARY KEY,
+        name string,
+        category_id integer,
+        textcolor string,
+        backcolor string,
+        bordercolor string,
+        last_series string,
+        last_page string,
+        link string,
+        file_path string,
+        description text
+        )''')
+
+    def get_element_by_id(self, id: int):
+        try:
+            data = self.cursor.execute('''select * from elements where id=?''',
+                                       (id,)).fetchone()
+            return data
+        except Exception as e:
+            print(e)
+            return []
+
+    def create_element_in_category(self, name: str, category_id: int, textcolor: str, backcolor: str,
+                                   bordercolor: str, desc: str):
+        if not name:
+            return False
+
+        try:
+            self.cursor.execute('''insert into elements (name, category_id, textcolor, backcolor,
+            bordercolor, description) values (?, ?, ?, ?, ?, ?)''',
+                                (name, category_id, textcolor, backcolor, bordercolor, desc,))
+            self.conn.commit()
+            return True
+        except Exception as e:
+            return False
+
+    def get_elements_by_category_id(self, category_id: int):
+        try:
+            return self.cursor.execute('''select * from elements where category_id=?''',
+                                       (category_id,)).fetchall()
+        except Exception as e:
+            return False
 
     def create_category(self, name: str, backcolor: str, textcolor: str,
                         bordercolor: str, desc=''):
