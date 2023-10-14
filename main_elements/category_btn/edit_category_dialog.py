@@ -38,7 +38,7 @@ class EditCategoryDialog(widgets.QDialog):
         self.id = id  # needed id for editing
 
         # подгружаем дизайн
-        uic.loadUi("./main_elements/add_category_btn/add_category_dialog.ui", self)
+        uic.loadUi("static/edit_category.ui", self)
 
         # set a name of window
         self.setWindowTitle("Создание собственной категории")

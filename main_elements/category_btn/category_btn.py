@@ -1,4 +1,6 @@
-from PyQt5 import QtWidgets as widgets
+from PyQt5 import QtWidgets as widgets, QtGui
+from PyQt5 import QtGui, QtCore
+from PyQt5.QtGui import QCursor
 from db_class import db
 from PyQt5.QtGui import QIcon
 from .edit_category_dialog import EditCategoryDialog
@@ -30,13 +32,15 @@ class CategoryBtn(widgets.QLabel):
         self.setToolTip(self.desc)
 
         self.setStyleSheet('QLabel {' + f"""border: 4px solid {self.bordercolor};
-        text-color: {self.textcolor};
+        color: {self.textcolor};
         background-color: {self.backcolor};
         border-radius: 5px;
         font-family: 'Lato', sans-serif;
         font-weight: 500;
         font-size: 24;
         padding-left: 25px;""" + '}')
+        self.setFont(QtGui.QFont("Lato", 24, QtGui.QFont.Bold))
+        self.setCursor(QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
 
         # context menu
         self.menu = widgets.QMenu(self.s)

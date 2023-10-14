@@ -10,7 +10,7 @@ class MainWindow(widgets.QMainWindow):
         super().__init__()
 
         # load ui
-        uic.loadUi('./mainwindow.ui', self)
+        uic.loadUi('static/mainwindow.ui', self)
 
         # set the geometry
         self.setGeometry(0, 0, 995, 673)

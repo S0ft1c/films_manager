@@ -1,10 +1,10 @@
 from PyQt5 import QtWidgets as widgets
 from db_class import db
 from PyQt5.QtGui import QIcon
+from PyQt5 import QtGui, QtCore
+from PyQt5.QtGui import QCursor
 from PyQt5.QtCore import Qt
-
-
-# TODO: create a edit dialog
+from .element_edit_dialog import EditElementDialog
 
 
 class ElementBtn(widgets.QLabel):
@@ -19,9 +19,10 @@ class ElementBtn(widgets.QLabel):
         data = db.get_element_by_id(self.id)
         if data:
             self.name = data[1]
-            self.textcolor = data[2]
-            self.backcolor = data[3]
-            self.bordercolor = data[4]
+            self.textcolor = data[3]
+            self.backcolor = data[4]
+            self.bordercolor = data[5]
+            self.category_id = data[2]
             self.desc = data[10]
 
         # create a texts
@@ -29,11 +30,20 @@ class ElementBtn(widgets.QLabel):
         self.setToolTip(self.desc)
 
         self.setStyleSheet('QLabel {' + f"""border: 4px solid {self.bordercolor};
-                text-color: {self.textcolor};
+                color: {self.textcolor};
                 background-color: {self.backcolor};
                 border-radius: 5px;
-                font-family: 'Lato', sans-serif;
                 font-weight: 500;
+                font-family: 'Times', sans-serif;
                 font-size: 24;
                 padding-left: 25px;""" + '}')
+        self.setFont(QtGui.QFont("Lato", 16, QtGui.QFont.Bold))
+        self.setCursor(QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
 
+        # connect the mousePressEvent
+        self.mousePressEvent = self.left_click
+
+    def left_click(self, event):
+        if event.button() == Qt.LeftButton:
+            dialog = EditElementDialog(self, self.id)
+            dialog.exec_()

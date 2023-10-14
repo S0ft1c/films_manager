@@ -10,6 +10,11 @@
     <height>673</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Arial</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -32,21 +37,22 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>90</y>
+      <y>80</y>
       <width>491</width>
-      <height>531</height>
+      <height>541</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Leelawadee UI</family>
+      <family>Lato</family>
       <pointsize>16</pointsize>
      </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QScrollArea {
                 background-color: white;
-border: 1px white solid
+border: 1px white solid;
+font-family: 'Lato', sans-serif;
             }
             
             QScrollBar:vertical {
@@ -75,16 +81,20 @@ border: 1px white solid
        <x>0</x>
        <y>0</y>
        <width>491</width>
-       <height>531</height>
+       <height>541</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-family: 'Lato', sans-serif;
+</string>
      </property>
     </widget>
    </widget>
    <widget class="QPushButton" name="category_load_btn">
     <property name="geometry">
      <rect>
-      <x>319</x>
-      <y>43</y>
+      <x>320</x>
+      <y>30</y>
       <width>181</width>
       <height>41</height>
      </rect>
@@ -199,10 +209,17 @@ background-image: linear-gradient(315deg, #4dccc6 0%, #96e4df 74%);
       <height>561</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Lato</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QScrollArea {
                 background-color: white;
-border: 1px white solid
+border: 1px white solid;
+font-family: 'Lato', sans-serif;
             }
             
             QScrollBar:vertical {
@@ -234,6 +251,10 @@ border: 1px white solid
        <height>561</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font-family: 'Lato', sans-serif;
+</string>
+     </property>
     </widget>
    </widget>
   </widget>
@@ -243,7 +264,7 @@ border: 1px white solid
      <x>0</x>
      <y>0</y>
      <width>995</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

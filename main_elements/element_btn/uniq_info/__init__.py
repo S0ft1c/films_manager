@@ -1,0 +1,1 @@
+from .last_series_widget import LastSeriesWidget

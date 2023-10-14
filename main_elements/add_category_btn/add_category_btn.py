@@ -1,7 +1,7 @@
-from PyQt5 import QtWidgets as widgets
-from PyQt5.QtGui import QColor
-from PyQt5.QtCore import Qt
+from PyQt5 import QtWidgets as widgets, QtGui
 from .add_category_dialog import AddCategoryDialog
+from PyQt5 import QtGui, QtCore
+from PyQt5.QtGui import QCursor
 
 style = """
   color: #fff;
@@ -24,6 +24,8 @@ class AddCategoryBtn(widgets.QPushButton):
     def initUI(self):
         # here write a name of file we needed
         self.setStyleSheet(style)
+        self.setCursor(QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.setFont(QtGui.QFont("Lato", 16, QtGui.QFont.Bold))
 
         # set a text of a btn
         self.setText('Создать категорию')

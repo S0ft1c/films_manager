@@ -9,7 +9,7 @@ class AddElementDialog(widgets.QDialog):
     def __init__(self, category_id):
         super().__init__()
 
-        uic.loadUi('./main_elements/add_element_btn/add_element_dialog.ui', self)  # load ui
+        uic.loadUi('static/add_element_dialog.ui', self)  # load ui
 
         # set a name of window
         self.setWindowTitle("Создание нового элемента")

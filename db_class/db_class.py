@@ -126,5 +126,17 @@ class DB:
             print(e)
             return False
 
+    def edit_element(self, id: int, data: list):
+        try:
+            self.cursor.execute('''update elements set name=?, last_series=?, last_page=?, link=?,
+            file_path=?, description=? where id=?''',
+                                (data[1], data[6], data[7], data[8], data[9], data[10],
+                                 id,))
+            self.conn.commit()
+            return True
+        except Exception as e:
+            print(e)
+            return False
+
 
 db = DB()  # create an obj of class
