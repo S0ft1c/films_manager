@@ -3,11 +3,15 @@ import sys
 import main_elements as ms
 from PyQt5 import uic  # Импортируем uic
 from db_class import db
+import os
 
 
 class MainWindow(widgets.QMainWindow):
     def __init__(self):
         super().__init__()
+
+        # create cache
+        os.makedirs('cache', exist_ok=True)
 
         # load ui
         uic.loadUi('static/mainwindow.ui', self)
