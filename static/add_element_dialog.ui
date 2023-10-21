@@ -29,7 +29,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Не забывайте про творчество</string>
+    <string>Запомните произведение</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="element_name_edit">
@@ -119,7 +119,7 @@
       <property name="font">
        <font>
         <family>Lato</family>
-        <pointsize>16</pointsize>
+        <pointsize>14</pointsize>
         <bold>false</bold>
        </font>
       </property>
@@ -144,7 +144,7 @@
       <property name="font">
        <font>
         <family>Lato</family>
-        <pointsize>16</pointsize>
+        <pointsize>14</pointsize>
         <bold>false</bold>
        </font>
       </property>
@@ -169,7 +169,7 @@
       <property name="font">
        <font>
         <family>Lato</family>
-        <pointsize>16</pointsize>
+        <pointsize>14</pointsize>
         <bold>false</bold>
        </font>
       </property>
@@ -230,7 +230,7 @@
    <property name="font">
     <font>
      <family>Lato</family>
-     <pointsize>20</pointsize>
+     <pointsize>14</pointsize>
      <bold>false</bold>
     </font>
    </property>

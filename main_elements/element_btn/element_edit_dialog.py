@@ -1,4 +1,6 @@
 from PyQt5 import QtWidgets as widgets
+from PyQt5.QtWidgets import QFileDialog
+import shutil
 from db_class import db
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtGui, QtCore
@@ -10,6 +12,9 @@ import main_elements.element_btn.uniq_info as uniq_info
 # this dictionary needed for the edit_element foo
 database_indexes_dictionary = {
     'last_series': 6,
+    'last_page': 7,
+    'web': 8,
+    'file': 9,
 }
 
 
@@ -70,8 +75,10 @@ class EditElementDialog(widgets.QDialog):
             item = self.uniq_info_scroll_layout.takeAt(0)
             widget = item.widget()
             if widget is not None:
-                index, value = widget.return_data().split('-')
-                self.data[database_indexes_dictionary[index]] = value
+                index, value = widget.return_data().split('|')
+                if database_indexes_dictionary[index] != 9:  # if it's not a file
+                    self.data[database_indexes_dictionary[index]] = value
+        self.data[9] = None if not self.data[9] else self.data[9]  # if it's '', we need to change to None
 
         if db.edit_element(self.id, self.data):
             self.s.s.elements_load_data(self.s.category_id)  # all of this is for auto-update!
@@ -89,11 +96,54 @@ class EditElementDialog(widgets.QDialog):
             last_s_widget = uniq_info.LastSeriesWidget(self, self.data[6])
             self.uniq_info_scroll_layout.addWidget(last_s_widget)
             last_s_widget.show()
-            pass
+
+        if self.data[7] is not None:
+            last_p_widget = uniq_info.LastPageWidget(self, self.data[7])
+            self.uniq_info_scroll_layout.addWidget(last_p_widget)
+            last_p_widget.show()
+
+        if self.data[8] is not None:
+            web_widget = uniq_info.WebWidget(self, self.data[8])
+            self.uniq_info_scroll_layout.addWidget(web_widget)
+            web_widget.show()
+
+        if self.data[9] is not None:
+            for file in self.data[9].split(', '):
+                file_widget = uniq_info.FileWidget(self, file)
+                self.uniq_info_scroll_layout.addWidget(file_widget)
+                file_widget.show()
 
     def add_uniq_info(self):
+
         if self.uniq_info_combobox.currentText() == 'Последняя серия':
             # if user want to add series
             if self.data[6] is None:  # and there no series
                 self.data[6] = '0, 0'
                 self.load_uniq_info()  # load the info
+
+        if self.uniq_info_combobox.currentText() == 'Последняя страница':
+            # if user want to add page
+            if self.data[7] is None:  # and there no pages
+                self.data[7] = '0'
+                self.load_uniq_info()
+
+        if self.uniq_info_combobox.currentText() == 'Ссылка на веб-ресурс':
+            # if user want to add the web page
+            if self.data[8] is None:
+                self.data[8] = 'Пусто тут'
+                self.load_uniq_info()
+
+        if self.uniq_info_combobox.currentText() == 'Добавить файл':
+            # if user want to add the another file
+            file_dialog = QFileDialog()
+            file_path, _ = file_dialog.getOpenFileName()
+            if file_path:
+                # we need our new filepath: 'cache/<smth>'
+                new_file_path = f'cache/{file_path.split("/")[-1]}'
+                if self.data[9]:
+                    self.data[9] = ', '.join(self.data[9].split(', ') + [new_file_path])
+                else:
+                    self.data[9] = ', '.join([new_file_path])
+                # copy file to a cache
+                shutil.copy2(file_path, new_file_path)
+                self.load_uniq_info()

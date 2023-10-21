@@ -25,7 +25,7 @@ class AddCategoryBtn(widgets.QPushButton):
         # here write a name of file we needed
         self.setStyleSheet(style)
         self.setCursor(QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.setFont(QtGui.QFont("Lato", 16, QtGui.QFont.Bold))
+        self.setFont(QtGui.QFont("Lato", 14, QtGui.QFont.Bold))
 
         # set a text of a btn
         self.setText('Создать категорию')

@@ -7,13 +7,13 @@ from PyQt5.QtCore import Qt
 from PyQt5 import uic  # Импортируем uic
 
 
-class LastSeriesWidget(widgets.QWidget):
+class LastPageWidget(widgets.QWidget):
     def __init__(self, s, data: str):
         super().__init__(s)
-        uic.loadUi('static/last_series_widget.ui', self)
+        uic.loadUi('static/last_page_widget.ui', self)
 
         self.s = s
-        self.season, self.seria = data.split(', ')
+        self.page = data
 
         # set static info
         self.setFixedHeight(131)
@@ -22,12 +22,9 @@ class LastSeriesWidget(widgets.QWidget):
         self.setVisible(True)
 
         # set the defaults
-        self.season_line_edit.setText(self.season)
-        self.series_line_edit.setText(self.seria)
-
-        # connect the text changes
-        self.season_line_edit.textChanged.connect(self.change_season)
-        self.series_line_edit.textChanged.connect(self.change_seria)
+        self.last_page_line_edit.setText(str(self.page))
+        # set the change text
+        self.last_page_line_edit.textChanged.connect(self.page_changed)
 
         # create a right-click menu
         self.setContextMenuPolicy(Qt.CustomContextMenu)
@@ -35,18 +32,15 @@ class LastSeriesWidget(widgets.QWidget):
 
     def showContextMenu(self, pos):  # delete the info
         contextMenu = QtWidgets.QMenu(self)
-        delete_action = contextMenu.addAction("Удалить серии")
+        delete_action = contextMenu.addAction("Удалить страницу")
         action = contextMenu.exec_(self.mapToGlobal(pos))
 
         if action == delete_action:
-            self.s.data[6] = None
+            self.s.data[7] = None
             self.deleteLater()
 
-    def change_season(self):
-        self.season = self.season_line_edit.text()
-
-    def change_seria(self):
-        self.seria = self.series_line_edit.text()
+    def page_changed(self):
+        self.page = self.last_page_line_edit.text().strip()
 
     def return_data(self):  # this foo is for the commit
-        return f'last_series|{self.season}, {self.seria}'
+        return f'last_page|{self.page}'

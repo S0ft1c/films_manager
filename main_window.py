@@ -41,10 +41,6 @@ class MainWindow(widgets.QMainWindow):
         )
         self.elements_scroll_layout = widgets.QVBoxLayout(self.elements_scroll_content)
 
-        # self.elements_load_btn.clicked.connect(  TODO: create an update btn
-        #     self.category_load_data
-        # )
-
         self.category_load_data()  # load data for default
 
         # current_category_chosen
@@ -58,7 +54,7 @@ class MainWindow(widgets.QMainWindow):
         )
 
     def create_element(self):  # to another class
-        ms.AddElementBtn(self.cur_category).create_element()
+        ms.AddElementBtn(self, self.cur_category).create_element()
 
     def category_load_data(self):
         # clears all the layout

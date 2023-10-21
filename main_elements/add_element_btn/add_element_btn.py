@@ -5,9 +5,10 @@ from .add_element_dialog import AddElementDialog
 
 
 class AddElementBtn:
-    def __init__(self, category_id: int):
+    def __init__(self, s, category_id: int):
         self.category_id = category_id
+        self.s = s
 
     def create_element(self):
-        dialog = AddElementDialog(self.category_id)
+        dialog = AddElementDialog(self.s, self.category_id)
         dialog.exec_()

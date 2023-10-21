@@ -10,7 +10,6 @@ ok_btn_style = """color: #fff;
   font-family: 'Lato', sans-serif;
   font-weight: 500;
   background-color: #4dccc6;
-  background-image: linear-gradient(315deg, #4dccc6 0%, #96e4df 74%);
   line-height: 42px;
   padding: 0;
 """
@@ -27,7 +26,6 @@ result_label_style = """
 border: 4px solid #484848;
 border-radius: 2px;
 text-align: center;
-font-size: 16px;
 font-wight: bold;"""
 
 
@@ -62,7 +60,7 @@ class AddCategoryDialog(widgets.QDialog):
         )
 
         # result label
-        self.result_label.setStyleSheet(result_label_style)
+        # self.result_label.setStyleSheet(result_label_style)
 
         # btn for backcolor
         self.backcolor_btn.setStyleSheet(change_color_style)

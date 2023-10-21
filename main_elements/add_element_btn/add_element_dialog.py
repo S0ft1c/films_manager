@@ -6,7 +6,7 @@ from db_class import db
 
 
 class AddElementDialog(widgets.QDialog):
-    def __init__(self, category_id):
+    def __init__(self, s, category_id):
         super().__init__()
 
         uic.loadUi('static/add_element_dialog.ui', self)  # load ui
@@ -16,6 +16,7 @@ class AddElementDialog(widgets.QDialog):
 
         # save the category_id
         self.category_id = category_id
+        self.s = s
 
         # get the default color from db
         category_data = db.get_category_by_id(self.category_id)
@@ -32,10 +33,10 @@ class AddElementDialog(widgets.QDialog):
 
     def initUI(self):
         # element_name_edit for name of element
-        self.element_name_edit.setPlaceholderText('Введите название элемента')
+        self.element_name_edit.setPlaceholderText('Введите название произведения')
 
         # set placeholder to description
-        self.description_edit.setPlaceholderText('Вот тут введите описание категории')
+        self.description_edit.setPlaceholderText('Вот тут введите описание произведения')
 
         # every btn
         self.backcolor_btn.clicked.connect(
@@ -88,4 +89,5 @@ class AddElementDialog(widgets.QDialog):
         )
 
         if ans:
+            self.s.elements_load_data(self.category_id)
             self.close()
