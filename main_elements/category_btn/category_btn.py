@@ -71,8 +71,8 @@ class CategoryBtn(widgets.QLabel):
         self.menu.exec_(self.mapToGlobal(event))
 
     def delete_category(self):  # delete category
-        if not db.delete_category(self.id):
-            pass
+        if db.delete_category(self.id):
+            self.s.category_load_data()
 
     def edit_category(self):
         label = self.sender().parentWidget()  # receive for what label it was
@@ -85,5 +85,5 @@ class CategoryBtn(widgets.QLabel):
         # get the needed id by index of layout
         id = db.get_category_ids()[index]
 
-        dialog = EditCategoryDialog(id=id)
+        dialog = EditCategoryDialog(id, self.s)
         dialog.exec_()

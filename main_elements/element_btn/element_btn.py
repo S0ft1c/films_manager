@@ -1,4 +1,6 @@
 from PyQt5 import QtWidgets as widgets
+from PyQt5 import QtWidgets
+
 from db_class import db
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtGui, QtCore
@@ -42,6 +44,19 @@ class ElementBtn(widgets.QLabel):
 
         # connect the mousePressEvent
         self.mousePressEvent = self.left_click
+
+        # create a right-click menu
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.showContextMenu)
+
+    def showContextMenu(self, pos):
+        contextMenu = QtWidgets.QMenu(self)
+        delete_action = contextMenu.addAction("Удалить элемент")
+        action = contextMenu.exec_(self.mapToGlobal(pos))
+
+        if action == delete_action:  # if we want to delete
+            db.delete_element(self.id)
+            self.s.elements_load_data(self.category_id)
 
     def left_click(self, event):
         if event.button() == Qt.LeftButton:

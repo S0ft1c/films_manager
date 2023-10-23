@@ -54,6 +54,11 @@ class AddElementDialog(widgets.QDialog):
             self.create_element
         )
 
+        # back_btn connect
+        self.back_btn.clicked.connect(
+            self.close
+        )
+
     def back_color_pick(self):
         color = widgets.QColorDialog.getColor()
         if color.isValid():

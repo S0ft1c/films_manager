@@ -32,10 +32,11 @@ font-wight: bold;"""
 
 
 class EditCategoryDialog(widgets.QDialog):
-    def __init__(self, id):
+    def __init__(self, id, s):
         super().__init__()
 
         self.id = id  # needed id for editing
+        self.s = s
 
         # подгружаем дизайн
         uic.loadUi("static/edit_category.ui", self)
@@ -95,6 +96,11 @@ class EditCategoryDialog(widgets.QDialog):
         # btn OK
         self.ok_btn.setStyleSheet(ok_btn_style)
         self.ok_btn.clicked.connect(self.add_to_db)  # add to db the variant
+
+        # back_btn
+        self.back_btn.clicked.connect(
+            self.close
+        )
 
     def border_color_pick(self):
         color = widgets.QColorDialog.getColor()
@@ -166,4 +172,5 @@ class EditCategoryDialog(widgets.QDialog):
         )
 
         if ans:
+            self.s.category_load_data()
             self.close()

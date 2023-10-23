@@ -30,7 +30,7 @@ font-wight: bold;"""
 
 
 class AddCategoryDialog(widgets.QDialog):
-    def __init__(self):
+    def __init__(self, s):
         super().__init__()
 
         # подгружаем дизайн
@@ -38,6 +38,8 @@ class AddCategoryDialog(widgets.QDialog):
 
         # set a name of window
         self.setWindowTitle("Создание собственной категории")
+
+        self.s = s
 
         # all of this is for fucking animation
         self.text = "Сделайте свою категорию по своему вкусу"
@@ -91,6 +93,11 @@ class AddCategoryDialog(widgets.QDialog):
         # btn OK
         self.ok_btn.setStyleSheet(ok_btn_style)
         self.ok_btn.clicked.connect(self.add_to_db)  # add to db the variant
+
+        # back_btn
+        self.back_btn.clicked.connect(
+            self.close
+        )
 
     def border_color_pick(self):
         color = widgets.QColorDialog.getColor()
@@ -160,4 +167,5 @@ class AddCategoryDialog(widgets.QDialog):
         )
 
         if ans:
+            self.s.category_load_data()
             self.close()

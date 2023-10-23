@@ -64,6 +64,11 @@ class EditElementDialog(widgets.QDialog):
         # default load uniq data
         self.load_uniq_info()
 
+        # back_btn
+        self.back_btn.clicked.connect(
+            self.close
+        )
+
     def desc_changed(self):
         self.data[10] = self.description_plain_text_edit.toPlainText()
 

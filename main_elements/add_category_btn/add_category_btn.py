@@ -18,7 +18,7 @@ style = """
 class AddCategoryBtn(widgets.QPushButton):
     def __init__(self, s):
         super().__init__(s)
-
+        self.s = s
         self.initUI()
 
     def initUI(self):
@@ -37,5 +37,5 @@ class AddCategoryBtn(widgets.QPushButton):
         self.clicked.connect(self.clicked_btn)
 
     def clicked_btn(self):
-        dialog = AddCategoryDialog()
+        dialog = AddCategoryDialog(self.s)
         dialog.exec_()
