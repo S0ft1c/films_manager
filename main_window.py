@@ -123,22 +123,30 @@ class MainWindow(widgets.QMainWindow):
             )
 
     def elements_load_data(self, category_id: int):
-        self.cur_category = category_id
-        self.add_element_btn.setVisible(True)  # category selected -> visible
-        self.add_element_btn.setEnabled(True)
-        self.element_search_line_edit.setVisible(True)
-        self.element_search_line_edit.setEnabled(True)
+        if category_id != -1:
+            self.cur_category = category_id
+            self.add_element_btn.setVisible(True)  # category selected -> visible
+            self.add_element_btn.setEnabled(True)
+            self.element_search_line_edit.setVisible(True)
+            self.element_search_line_edit.setEnabled(True)
 
-        elements = db.get_elements_by_category_id(category_id)
+            elements = db.get_elements_by_category_id(category_id)
 
-        # clears all the layout
-        while self.elements_scroll_layout.count():
-            item = self.elements_scroll_layout.takeAt(0)
-            widget = item.widget()
-            if widget is not None:
-                widget.deleteLater()
+            # clears all the layout
+            while self.elements_scroll_layout.count():
+                item = self.elements_scroll_layout.takeAt(0)
+                widget = item.widget()
+                if widget is not None:
+                    widget.deleteLater()
 
-        for element in elements:
-            self.elements_scroll_layout.addWidget(
-                ms.ElementBtn(self, element[0])
-            )
+            for element in elements:
+                self.elements_scroll_layout.addWidget(
+                    ms.ElementBtn(self, element[0])
+                )
+        else:
+            # clears all the layout
+            while self.elements_scroll_layout.count():
+                item = self.elements_scroll_layout.takeAt(0)
+                widget = item.widget()
+                if widget is not None:
+                    widget.deleteLater()

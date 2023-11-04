@@ -28,8 +28,8 @@ class CategoryBtn(widgets.QLabel):
             self.desc = data[5]
 
         # create a texts
-        self.setText(self.name)
-        self.setToolTip(self.desc)
+        self.setText(str(self.name))
+        self.setToolTip(str(self.desc))
 
         self.setStyleSheet('QLabel {' + f"""border: 4px solid {self.bordercolor};
         color: {self.textcolor};
@@ -73,6 +73,8 @@ class CategoryBtn(widgets.QLabel):
     def delete_category(self):  # delete category
         if db.delete_category(self.id):
             self.s.category_load_data()
+            self.s.elements_load_data(self.id)
+            self.s.cur_category = -1
 
     def edit_category(self):
         label = self.sender().parentWidget()  # receive for what label it was

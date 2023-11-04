@@ -28,8 +28,8 @@ class ElementBtn(widgets.QLabel):
             self.desc = data[10]
 
         # create a texts
-        self.setText(self.name)
-        self.setToolTip(self.desc)
+        self.setText(str(self.name))
+        self.setToolTip(str(self.desc))
 
         self.setStyleSheet('QLabel {' + f"""border: 4px solid {self.bordercolor};
                 color: {self.textcolor};

@@ -42,7 +42,7 @@ class WebWidget(widgets.QWidget):
     def showContextMenu(self, pos):  # delete the info
         contextMenu = QtWidgets.QMenu(self)
         open_link_action = contextMenu.addAction("Открыть ссылку")
-        delete_action = contextMenu.addAction("Удалить серии")
+        delete_action = contextMenu.addAction("Удалить веб-ресурс")
         action = contextMenu.exec_(self.mapToGlobal(pos))
 
         if action == delete_action:

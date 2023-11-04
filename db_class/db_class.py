@@ -133,7 +133,11 @@ class DB:
 
     def delete_category(self, id: int):
         try:
-            self.cursor.execute("""delete from categories where id=?""", (id,))
+            self.cursor.execute("""delete from categories where id=?""",
+                                (id,))
+            self.conn.commit()
+            self.cursor.execute("""delete from elements where category_id=?""",
+                                (id,))
             self.conn.commit()
             return True
         except Exception as e:
